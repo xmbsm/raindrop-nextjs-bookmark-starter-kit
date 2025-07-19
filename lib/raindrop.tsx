@@ -20,3 +20,20 @@ export const getCollections = cache(async () => {
     return null;
   }
 });
+
+export const getBookmark = cache(async (id: number, pageIndex = "0") => {
+  try {
+    const response = await fetch(
+      `${RAINDROP_API_URL}/raindrops/${id}?` +
+        new URLSearchParams({
+          page: pageIndex,
+          perpage: "100",
+        }),
+      options
+    );
+    return await response.json();
+  } catch (error) {
+    console.info(error);
+    return null;
+  }
+});
